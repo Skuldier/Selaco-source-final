@@ -124,9 +124,6 @@
 #include "statdb.h"
 
 
-
-// Archipelago integration for Selaco
-#include "archipelago/archipelago_integration.h"
 #ifdef __unix__
 #include "i_system.h"  // for SHARE_DIR
 #endif // __unix__
@@ -155,13 +152,6 @@ CUSTOM_CVAR(Int, engine_minor, ENG_MINOR, CVAR_NOSAVE | CVAR_NOSET | CVAR_IGNORE
 
 void DrawHUD();
 void D_DoAnonStats();
-
-	// Initialize Archipelago support for Selaco
-	if (!SelacoArchipelago_Initialize()) {
-		Printf(TEXTCOLOR_YELLOW "Archipelago initialization failed - multiworld features disabled\n");
-	} else {
-		Printf(TEXTCOLOR_GREEN "Archipelago initialized - multiworld support enabled\n");
-	}
 void I_DetectOS();
 void UpdateGenericUI(bool cvar);
 void Local_Job_Init();
@@ -200,11 +190,7 @@ void D_DoAdvanceDemo ();
 void D_LoadWadSettings ();
 void ParseGLDefs();
 void DrawFullscreenSubtitle(FFont* font, const char *text);
-void 
-	// Shutdown Archipelago connection
-	SelacoArchipelago_Shutdown();
-	
-D_Cleanup();
+void D_Cleanup();
 void FreeSBarInfoScript();
 void I_UpdateWindowTitle();
 void S_ParseMusInfo();
@@ -1207,10 +1193,7 @@ void D_Display ()
 	}
 	else
 	{
-		NetUpdate();		
-		// Update Archipelago connection (non-blocking)
-		SelacoArchipelago_Update();
-// send out any new accumulation
+		NetUpdate();		// send out any new accumulation
 		PerformWipe(wipestart, screen->WipeEndScreen(), wipe_type, false, DrawOverlays);
 	}
 	cycles.Unclock();

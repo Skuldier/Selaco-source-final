@@ -1,0 +1,47 @@
+# Selaco Archipelago Integration - Next Steps
+
+## What was added to CMakeLists.txt:
+
+1. **Dependencies:**
+   - libwebsockets v4.3.3 (via FetchContent)
+   - nlohmann/json v3.11.3 (via FetchContent)
+   - Windows libraries: ws2_32, iphlpapi, psapi, userenv, crypt32
+
+2. **Library Target:**
+   - `selaco_archipelago` static library
+   - Includes all Archipelago source files
+   - Configured with proper include directories
+
+3. **Integration:**
+   - Linked to main Selaco executable
+   - Windows-specific configuration
+   - Debug/Release build settings
+
+## Next Steps:
+
+1. Create the archipelago directory:
+   ```
+   mkdir src/archipelago
+   ```
+
+2. Copy the Archipelago source files to src/archipelago/
+
+3. Run the main loop patch:
+   ```
+   python selaco_archipelago_patch.py ./src
+   ```
+
+4. Build and test:
+   ```
+   mkdir build && cd build
+   cmake -G "Visual Studio 17 2022" -A x64 ..
+   cmake --build . --config Release
+   ```
+
+## Testing:
+
+Once built, test with these console commands:
+- `archipelago_status`
+- `archipelago_connect archipelago.gg 38281 YourSlotName`
+- `archipelago_test`
+- `archipelago_disconnect`

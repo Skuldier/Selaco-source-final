@@ -1,0 +1,47 @@
+
+/*
+Add these console command registrations to your console command system.
+This is typically in a file like c_cmds.cpp or similar.
+*/
+
+// In the console command registration section, add:
+
+CCMD(archipelago_connect)
+{
+    if (argv.argc() < 4) {
+        Printf("Usage: archipelago_connect <host> <port> <slot_name> [password]\n");
+        Printf("Example: archipelago_connect archipelago.gg 38281 MySlot\n");
+        return;
+    }
+    
+    const char* host = argv[1];
+    int port = atoi(argv[2]);
+    const char* slot_name = argv[3];
+    const char* password = argv.argc() > 4 ? argv[4] : "";
+    
+    CMD_ArchipelagoConnect(host, port, slot_name, password);
+}
+
+CCMD(archipelago_disconnect)
+{
+    CMD_ArchipelagoDisconnect();
+}
+
+CCMD(archipelago_status) 
+{
+    CMD_ArchipelagoStatus();
+}
+
+CCMD(archipelago_test)
+{
+    CMD_ArchipelagoTest();
+}
+
+// Also add this to a game event handler (e.g., when items are picked up):
+/*
+void OnItemPickup(int location_id) 
+{
+    // Call this when player picks up an item at a specific location
+    SelacoArchipelago_OnLocationChecked(location_id);
+}
+*/
