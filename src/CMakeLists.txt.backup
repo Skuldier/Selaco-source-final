@@ -705,10 +705,6 @@ set( VM_JIT_SOURCES
 	common/scripting/jit/jit_store.cpp
 )
 
-
-# Add Archipelago integration
-add_subdirectory(archipelago)
-include_directories(archipelago)
 # Enable fast math for some sources
 set( FASTMATH_SOURCES
 	rendering/swrenderer/r_all.cpp
@@ -1274,7 +1270,7 @@ if( UNIX )
 	endif()
 endif()
 
-target_link_libraries("zdoom" ${PROJECT_LIBRARIES} lzma ${ZMUSIC_LIBRARIES} archipelago)
+target_link_libraries( zdoom ${PROJECT_LIBRARIES} lzma ${ZMUSIC_LIBRARIES} )
 
 include_directories(
 	BEFORE

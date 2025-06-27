@@ -1,0 +1,37 @@
+# Manual src/CMakeLists.txt Integration Instructions
+
+If the automatic patch didn't work perfectly, manually add these lines:
+
+## 1. Add archipelago subdirectory (after other add_subdirectory calls):
+
+```cmake
+# Add Archipelago integration
+add_subdirectory(archipelago)
+include_directories(archipelago)
+```
+
+## 2. Link archipelago to game executables:
+
+Find your main game executable targets and add archipelago to their target_link_libraries:
+
+```cmake
+# For each game target, add archipelago:
+target_link_libraries(doom archipelago)
+target_link_libraries(heretic archipelago)  
+target_link_libraries(hexen archipelago)
+target_link_libraries(strife archipelago)
+# or whatever your main executable is named
+```
+
+## 3. Add archipelago includes to target_include_directories:
+
+```cmake
+target_include_directories(your_target PRIVATE ${PROJECT_SOURCE_DIR}/src/archipelago)
+```
+
+## Verification:
+
+After building, you should see:
+- archipelago library compiled
+- No linking errors about missing archipelago symbols
+- Console commands available: archipelago_status, archipelago_connect, etc.
